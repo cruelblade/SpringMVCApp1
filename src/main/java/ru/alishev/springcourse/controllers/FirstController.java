@@ -29,17 +29,19 @@ public class FirstController {
     }
 
     @GetMapping("/calculator")
-    public String firstCalculator(@RequestParam(value = "a", required = false) int a,
-                            @RequestParam(value = "b", required = false) int b,
+    public String firstCalculator(@RequestParam(value = "a", required = false) Integer a,
+                            @RequestParam(value = "b", required = false) Integer b,
                             @RequestParam(value = "action", required = false) String action,
                             Model model) {
 
         int result = 0;
-        switch (action) {
-            case "multiplication" -> result = a*b;
-            case "addition" -> result = a+b;
-            case "substraction" -> result = a-b;
-            case "division" -> result = (int) a/b;
+        if (action != null) {
+            switch (action) {
+                case "multiplication" -> result = a * b;
+                case "addition" -> result = a + b;
+                case "subtraction" -> result = a - b;
+                case "division" -> result = (int) a / b;
+            }
         }
 
         model.addAttribute("result", result);
