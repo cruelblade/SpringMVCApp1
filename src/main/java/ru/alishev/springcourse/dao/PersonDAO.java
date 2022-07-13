@@ -16,10 +16,10 @@ public class PersonDAO {
     {
         people = new ArrayList<>();
 
-        people.add(new Person(++PEOPLE_COUNT, "Tom"));
-        people.add(new Person(++PEOPLE_COUNT, "Tod"));
-        people.add(new Person(++PEOPLE_COUNT, "Ted"));
-        people.add(new Person(++PEOPLE_COUNT, "Tim"));
+        people.add(new Person(++PEOPLE_COUNT, "Tom", 23, "kafka@mail.ru"));
+        people.add(new Person(++PEOPLE_COUNT, "Tod", 23, "kefka@mail.ru"));
+        people.add(new Person(++PEOPLE_COUNT, "Ted", 23, "kagh@mail.ru"));
+        people.add(new Person(++PEOPLE_COUNT, "Tim", 23, "kgsa@mail.ru"));
     }
 
     @GetMapping()
@@ -39,6 +39,8 @@ public class PersonDAO {
     public void update(int id, Person updatedPerson) {
         Person personToBeUpdated = show(id);
         personToBeUpdated.setName(updatedPerson.getName());
+        personToBeUpdated.setAge(updatedPerson.getAge());
+        personToBeUpdated.setEmail(updatedPerson.getEmail());
     }
 
     public void delete(int id) {
