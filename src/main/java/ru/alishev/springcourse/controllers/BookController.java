@@ -10,6 +10,7 @@ import ru.alishev.springcourse.dao.BookDAO;
 import ru.alishev.springcourse.dao.PersonDAO;
 import ru.alishev.springcourse.models.Book;
 import ru.alishev.springcourse.models.Person;
+import ru.alishev.springcourse.util.BookValidator;
 
 import javax.validation.Valid;
 
@@ -18,11 +19,13 @@ import javax.validation.Valid;
 public class BookController {
     private final BookDAO bookDAO;
     private final PersonDAO personDAO;
+    private final BookValidator bookValidator;
 
     @Autowired
-    public BookController(BookDAO bookDAO, PersonDAO personDAO) {
+    public BookController(BookDAO bookDAO, PersonDAO personDAO, BookValidator bookValidator) {
         this.bookDAO = bookDAO;
         this.personDAO = personDAO;
+        this.bookValidator = bookValidator;
     }
 
     @GetMapping()
@@ -52,8 +55,9 @@ public class BookController {
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("book") Book book,
+    public String create(@ModelAttribute("book") @Valid Book book,
                          BindingResult bindingResult) {
+        bookValidator.validate(book, bindingResult);
         if (bindingResult.hasErrors())
             return "books/new";
         bookDAO.save(book);
@@ -67,7 +71,7 @@ public class BookController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("book") Book book, BindingResult bindingResult,
+    public String update(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult,
                          @PathVariable("id") int id) {
         if(bindingResult.hasErrors())
             return "books/edit";
