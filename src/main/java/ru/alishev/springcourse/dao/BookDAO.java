@@ -50,6 +50,7 @@ public class BookDAO {
     public void release(int id) {
         jdbcTemplate.update("UPDATE books set person_id=null WHERE id=?", id);
     }
+
     public int extractPersonId(int id) {
         return jdbcTemplate.queryForObject("SELECT person_id FROM books WHERE id=?",
                 new Object[]{id}, Integer.class);
