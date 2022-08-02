@@ -17,7 +17,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
-    <spring.version>5.3.21</spring.version>
+    <spring.version>5.3.22</spring.version>
     <hibernate.version>5.4.28.Final</hibernate.version>
   </properties>
 
@@ -98,6 +98,14 @@
       <artifactId>spring-orm</artifactId>
       <version>${spring.version}</version>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-jpa</artifactId>
+      <version>2.7.2</version>
+    </dependency>
+
   </dependencies>
 
   <build>
