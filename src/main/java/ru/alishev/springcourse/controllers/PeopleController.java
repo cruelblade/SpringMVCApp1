@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.alishev.springcourse.models.Person;
+import ru.alishev.springcourse.services.ItemService;
 import ru.alishev.springcourse.services.PeopleService;
 
 import javax.validation.Valid;
@@ -16,17 +17,25 @@ import javax.validation.Valid;
 public class PeopleController {
 
     private final PeopleService peopleService;
+    private final ItemService itemService;
 
     @Autowired
-    public PeopleController(PeopleService peopleService)
+    public PeopleController(PeopleService peopleService, ItemService itemService)
     {
         this.peopleService = peopleService;
+        this.itemService = itemService;
     }
 
     @GetMapping()
     public String index(Model model) {
         //Получим всех людей из DAO и передадим в представление
         model.addAttribute("people", peopleService.findAll());
+
+        itemService.findByItemName("Ручка");
+        itemService.findByOwner(peopleService.findAll().get(0));
+
+        peopleService.test();
+
         return "people/index";
     }
 
