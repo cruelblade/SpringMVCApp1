@@ -1,21 +1,36 @@
 package ru.alishev.springcourse.models;
 
+import javax.persistence.*;
 import javax.validation.constraints.*;
 
+@Entity
+@Table(name = "book")
 public class Book {
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+
+    @Column(name = "name")
     @NotEmpty(message = "Book name should not be empty")
     @Size(min = 2, max = 30, message = "Book name should be between 2 and 30 characters")
     String name;
 
+    @Column(name = "author")
     @NotEmpty(message = "Book name should not be empty")
     @Size(min = 2, max = 30, message = "Author name should be between 2 and 30 characters")
     @Pattern(regexp = "[A-zА-я ]+",
             message = "Author name should have only letters or keyboard spaces")
     String author;
 
+    @Column(name = "year")
     @Min(value = 1000, message = "Year should be greater than 1000")
     int year;
+
+    @ManyToOne
+    @JoinColumn(name = "person_id", referencedColumnName = "id")
+    private Person owner;
 
     public Book() {}
 

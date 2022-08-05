@@ -1,6 +1,9 @@
 package ru.alishev.springcourse.models;
 
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.*;
+import java.util.List;
 
 public class Person {
     private int id;
@@ -16,6 +19,9 @@ public class Person {
     @Pattern(regexp = "[A-Z]\\w+, [A-Z]\\w+, \\d{6}",
     message = "Your address should be in this format: Country, City, Postal Code(6 numbers)")
     private String address;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Book> books;
 
     public Person() {
 
