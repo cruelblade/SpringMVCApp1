@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.alishev.springcourse.models.Person;
-import ru.alishev.springcourse.repository.PeopleRepository;
+import ru.alishev.springcourse.repositories.PeopleRepository;
 
 import java.util.List;
 import java.util.Optional;

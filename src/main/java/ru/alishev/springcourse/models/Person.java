@@ -1,11 +1,16 @@
 package ru.alishev.springcourse.models;
 
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.List;
 
+@Entity
+@Table(name = "person")
 public class Person {
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotEmpty(message = "Name should not be empty")

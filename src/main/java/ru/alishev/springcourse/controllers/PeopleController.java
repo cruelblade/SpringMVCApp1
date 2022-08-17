@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.alishev.springcourse.dao.PersonDAO;
 import ru.alishev.springcourse.models.Person;
 import ru.alishev.springcourse.services.PeopleService;
 import ru.alishev.springcourse.util.PersonValidator;
@@ -18,11 +19,13 @@ public class PeopleController {
 
     private final PeopleService peopleService;
     private final PersonValidator personValidator;
+    private final PersonDAO personDAO;
 
     @Autowired
-    public PeopleController(PeopleService peopleService, PersonValidator personValidator) {
+    public PeopleController(PeopleService peopleService, PersonValidator personValidator, PersonDAO personDAO) {
         this.peopleService = peopleService;
         this.personValidator = personValidator;
+        this.personDAO = personDAO;
     }
 
     @GetMapping()
@@ -36,7 +39,7 @@ public class PeopleController {
     public String show(@PathVariable("id") int id, Model model) {
         // Получим одного человека по id из DAO и передадим в представление
         model.addAttribute("person", peopleService.findOne(id));
-        model.addAttribute("books", peopleService.extractBooks(id));
+        model.addAttribute("books", personDAO.extractBooks(id));
         return "people/show";
     }
 

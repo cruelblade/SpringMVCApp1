@@ -3,7 +3,8 @@ package ru.alishev.springcourse.services;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.alishev.springcourse.models.Book;
-import ru.alishev.springcourse.repository.BooksRepository;
+import ru.alishev.springcourse.models.Person;
+import ru.alishev.springcourse.repositories.BooksRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,6 +41,18 @@ public class BooksService {
     @Transactional
     public void delete(int id) {
         booksRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void assign(int id, Person person, Book book) {
+        book.setOwner(person);
+        booksRepository.save(book);
+    }
+
+    @Transactional
+    public void release(int id, Book book) {
+        book.setOwner(null);
+        booksRepository.save(book);
     }
 
 }
