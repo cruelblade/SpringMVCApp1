@@ -28,10 +28,10 @@ public class BookDAO {
 //                .stream().findAny().orElse(null);
 //    }
 //
-    public Optional<Book> show(String name) {
-        return jdbcTemplate.query("SELECT * FROM books WHERE name=?", new Object[]{name}, new BeanPropertyRowMapper<>(Book.class))
-                .stream().findAny();
-    }
+//    public Optional<Book> show(String name) {
+//        return jdbcTemplate.query("SELECT * FROM books WHERE name=?", new Object[]{name}, new BeanPropertyRowMapper<>(Book.class))
+//                .stream().findAny();
+//    }
 //
 //    public void save(Book book) {
 //        jdbcTemplate.update("INSERT INTO books (name, author, year) VALUES(?, ?, ?)", book.getName(), book.getAuthor(), book.getYear());
@@ -51,11 +51,11 @@ public class BookDAO {
 //        jdbcTemplate.update("UPDATE books set person_id=null WHERE id=?", id);
 //    }
 
-    public int extractPersonId(int id) {
-        return jdbcTemplate.queryForObject("SELECT person_id FROM books WHERE id=?",
-                new Object[]{id}, Integer.class);
-    }
-
+//    public int extractPersonId(int id) {
+//        return jdbcTemplate.queryForObject("SELECT person_id FROM books WHERE id=?",
+//                new Object[]{id}, Integer.class);
+//    }
+//
     public String extractPerson(int id) {
         return jdbcTemplate.queryForObject("SELECT name FROM Person WHERE id=?",
                 new Object[]{id}, String.class);

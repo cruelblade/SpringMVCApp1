@@ -70,4 +70,12 @@ public class Person {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
 }

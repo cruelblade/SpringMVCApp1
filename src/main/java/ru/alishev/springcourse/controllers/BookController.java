@@ -52,8 +52,8 @@ public class BookController {
         model.addAttribute("person", new Person());
         model.addAttribute("people", peopleService.findAll());
         try {
-            model.addAttribute("person_id", bookDAO.extractPersonId(id));
-            model.addAttribute("personName", bookDAO.extractPerson(bookDAO.extractPersonId(id)));
+            model.addAttribute("person_id", booksService.extractPersonId(id));
+            model.addAttribute("personName", bookDAO.extractPerson(booksService.extractPersonId(id)));
         } catch (Exception e){
             model.addAttribute("person_id", 0);
         }

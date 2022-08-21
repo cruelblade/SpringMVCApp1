@@ -39,7 +39,7 @@ public class PeopleController {
     public String show(@PathVariable("id") int id, Model model) {
         // Получим одного человека по id из DAO и передадим в представление
         model.addAttribute("person", peopleService.findOne(id));
-        model.addAttribute("books", personDAO.extractBooks(id));
+        model.addAttribute("books", peopleService.extractBooks(id));
         return "people/show";
     }
 

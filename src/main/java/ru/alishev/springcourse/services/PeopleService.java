@@ -1,12 +1,15 @@
 package ru.alishev.springcourse.services;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.alishev.springcourse.models.Book;
 import ru.alishev.springcourse.models.Person;
 import ru.alishev.springcourse.repositories.PeopleRepository;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +32,11 @@ public class PeopleService {
         return foundPerson.orElse(null);
     }
 
+    public Optional<Person> findOne(String name) {
+        Optional<Person> foundPerson = peopleRepository.findOneByName(name);
+        return foundPerson;
+    }
+
     @Transactional
     public void save(Person person) {
         peopleRepository.save(person);
@@ -43,6 +51,17 @@ public class PeopleService {
     @Transactional
     public void delete(int id) {
         peopleRepository.deleteById(id);
+    }
+
+    public List<Book> extractBooks(int id) {
+        Optional<Person> person = peopleRepository.findById(id);
+
+        if (person.isPresent()) {
+            Hibernate.initialize(person.get().getBooks());
+
+            return person.get().getBooks();
+        } else
+            return Collections.emptyList();
     }
 
 }

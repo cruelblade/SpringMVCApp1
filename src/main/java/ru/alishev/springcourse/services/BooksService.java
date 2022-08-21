@@ -1,5 +1,6 @@
 package ru.alishev.springcourse.services;
 
+import org.hibernate.Hibernate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -32,6 +33,10 @@ public class BooksService {
     public Book findOne(int id) {
         Optional<Book> foundBook = booksRepository.findById(id);
         return foundBook.orElse(null);
+    }
+
+    public Optional<Book> findOne(String name) {
+        return booksRepository.findOneByName(name);
     }
 
     @Transactional
@@ -79,8 +84,17 @@ public class BooksService {
         else
             diffLetterSearch.replace(0,1, search.substring(0, 1).toUpperCase());
 
-
         return booksRepository.findByNameStartingWithOrNameStartingWith(search, diffLetterSearch.toString());
     }
+
+    public int extractPersonId(int id) {
+        System.out.println(booksRepository.findById(id).get().getOwner().getId());
+            return booksRepository.findById(id).get().getOwner().getId();
+    }
+
+//    public String extractPerson(int id) {
+//        Hibernate.initialize(booksRepository.findById(id).get().getOwner());
+//        return booksRepository.findById(id).get().getOwner().getName();
+//    }
 
 }

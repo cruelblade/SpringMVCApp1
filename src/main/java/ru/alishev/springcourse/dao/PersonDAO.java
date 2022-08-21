@@ -28,10 +28,10 @@ public class PersonDAO {
 //        return jdbcTemplate.query("SELECT * FROM Person", new BeanPropertyRowMapper<>(Person.class));
 //    }
 
-    public Optional<Person> show(String name) {
-        return jdbcTemplate.query("SELECT * FROM Person WHERE name=?", new Object[]{name}, new BeanPropertyRowMapper<>(Person.class))
-                .stream().findAny();
-    }
+//    public Optional<Person> show(String name) {
+//        return jdbcTemplate.query("SELECT * FROM Person WHERE name=?", new Object[]{name}, new BeanPropertyRowMapper<>(Person.class))
+//                .stream().findAny();
+//    }
 //
 //    public Person show(int id) {
 //        return jdbcTemplate.query("SELECT * FROM Person WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Person.class))
@@ -51,8 +51,8 @@ public class PersonDAO {
 //    }
 
 
-    @GetMapping()
-    public List<Book> extractBooks(int id) {
-        return jdbcTemplate.query("SELECT * FROM books where person_id=?", new BeanPropertyRowMapper<>(Book.class), id);
-    }
+//    @GetMapping()
+//    public List<Book> extractBooks(int id) {
+//        return jdbcTemplate.query("SELECT * FROM books where person_id=?", new BeanPropertyRowMapper<>(Book.class), id);
+//    }
 }
