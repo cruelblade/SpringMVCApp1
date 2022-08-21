@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.alishev.springcourse.models.Person;
 import ru.alishev.springcourse.repositories.PeopleRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 

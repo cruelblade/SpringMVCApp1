@@ -11,7 +11,8 @@
 <div th:if="${books.size() > 0}">
     <h3>Книги:</h3>
     <div th:each="book : ${books}">
-        <p th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}">
+        <p th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}"
+           th:style="${book.isExpired(book.getTakenAt())} ? 'color:red' : ''">
     </div>
 </div>
 

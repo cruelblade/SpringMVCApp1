@@ -25,8 +25,8 @@ public class BookValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Book book = (Book) target;
 
-//        if(bookDAO.show(book.getName()).isPresent()) {
-//            errors.rejectValue("name", "", "This name is already taken");
-//        }
+        if (bookDAO.show(book.getName()).isPresent()) {
+            errors.rejectValue("name", "", "This name is already taken");
+        }
     }
 }

@@ -14,6 +14,11 @@ import ru.alishev.springcourse.services.PeopleService;
 import ru.alishev.springcourse.util.BookValidator;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/books")
@@ -34,8 +39,10 @@ public class BookController {
     }
 
     @GetMapping()
-    public String index(Model model) {
-        model.addAttribute("books", booksService.findAll());
+    public String index(Model model, @RequestParam(defaultValue = "0", name = "page") int page,
+                        @RequestParam(defaultValue = "10", name = "book_per_page") int bookPerPage,
+                        @RequestParam(defaultValue = "false", name = "sort_by_year") boolean sortByYear) {
+        model.addAttribute("books", booksService.findAll(page, bookPerPage, sortByYear));
         return "books/index";
     }
 
@@ -93,13 +100,25 @@ public class BookController {
     @PatchMapping("{id}/assign")
     public String add(@PathVariable("id") int id, @ModelAttribute("person") Person person,
                       @ModelAttribute("book") Book book) {
-        booksService.assign(id, person, book);
+        booksService.assign(id, person);
         return "redirect:/books/";
     }
 
     @PatchMapping("{id}/release")
     public String delete(@PathVariable("id") int id, @ModelAttribute("book") Book book) {
-        booksService.release(id, book);
+        booksService.release(id);
         return "redirect:/books/";
+    }
+
+    @GetMapping("/search")
+    public String search() {
+        return "books/search";
+    }
+
+    @PostMapping("/search")
+    public String searchByName(Model model, @RequestParam(name="search") @NotEmpty(message = "Строка не должна быть пустой") String search)  {
+        if (search.length() > 0)
+            model.addAttribute("books", booksService.findBooksByNameStartingWith(search));
+        return "books/search";
     }
 }

@@ -2,6 +2,9 @@ package ru.alishev.springcourse.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "books")
@@ -27,6 +30,9 @@ public class Book {
     @Column(name = "year")
     @Min(value = 1000, message = "Year should be greater than 1000")
     int year;
+
+    @Column(name = "taken_at")
+    LocalDate takenAt;
 
     @ManyToOne
     @JoinColumn(name = "person_id", referencedColumnName = "id")
@@ -79,5 +85,20 @@ public class Book {
 
     public void setOwner(Person owner) {
         this.owner = owner;
+    }
+
+    public LocalDate getTakenAt() {
+        return takenAt;
+    }
+
+    public void setTakenAt(LocalDate takenAt) {
+        this.takenAt = takenAt;
+    }
+
+    public boolean isExpired(LocalDate takenAt) {
+        if (takenAt.isBefore(LocalDate.now().minusDays(10)))
+            return true;
+        else
+            return false;
     }
 }
